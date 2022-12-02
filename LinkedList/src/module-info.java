@@ -1,3 +1,0 @@
-module LinkedList {
-	requires junit;
-}
