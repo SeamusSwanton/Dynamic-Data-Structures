@@ -22,8 +22,27 @@ public class LinkedList {
 	}
 
 	public void add(int index, String element) {
-//			Node newNode = new Node(element, newNode, newNode);
+		if(index <= size() && index >=0) {
+			Node node = head;
+			Node newNode = new Node(element, null, null);
 
+			int i = 0;
+			while (i < index-1) {
+				i++;
+				node = node.next;
+			}
+
+			//pointers for the new node
+			newNode.next = node.next;
+			newNode.previous = node;
+
+			//pointers for nodes around new node
+			newNode.next.previous = newNode;
+			newNode.previous.next = newNode;
+		}
+		else {
+			throw new IndexOutOfBoundsException();
+		}
 	}
 
 	public int size() {
@@ -68,14 +87,16 @@ public class LinkedList {
 		node.value = null;
 		//makes the previous node's pointer refer to the next node 
 		if (node.previous == null) {
-//			node.previous.next = null;
+			node.next.previous = null;
+			head = node.next;
 		}
 		else {
 			node.previous.next = node.next;
 		}
 		//makes the next node's pointer refer to the previous node
 		if (node.next == null) {
-			node.next.previous = null;
+			node.previous.next = null;
+			tail = node.next;
 		}
 		else {
 			node.next.previous = node.previous;
@@ -91,18 +112,23 @@ public class LinkedList {
 	public void clear() {
 		// TODO Auto-generated method stub
 	}
-	
-	public String toString() {
-		Node node = head.next;
-		String output =  "[" + head.value;
 
-		while (node.next != null) {
-			output = output + ", " + node.value;
-			node = node.next;
+	public String toString() {
+		if (head.next != null) {
+			Node node = head.next;
+			String output =  "[" + head.value;
+
+			while (node.next != null) {
+				output = output + ", " + node.value;
+				node = node.next;
+			}
+
+			output = output + ", " + tail.value + "]";
+
+			return output;	
 		}
-		
-		output = output + ", " + tail.value + "]";
-		
-		return output;	
+		else {
+			return "[" + head.value + "]";
+		}
 	}
 }
