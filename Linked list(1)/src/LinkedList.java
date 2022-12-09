@@ -32,13 +32,24 @@ public class LinkedList {
 				node = node.next;
 			}
 
-			//pointers for the new node
-			newNode.next = node.next;
-			newNode.previous = node;
+			if (index == 0) {
+				newNode.next = head;
+				head.previous = newNode;
+				head = newNode;
+			}
 
-			//pointers for nodes around new node
-			newNode.next.previous = newNode;
-			newNode.previous.next = newNode;
+			else if(index == size()){
+				add(newNode.value);
+			}
+			else {
+				//pointers for the new node
+				newNode.next = node.next;
+				newNode.previous = node;
+
+				//pointers for nodes around new node
+				newNode.next.previous = newNode;
+				newNode.previous.next = newNode;
+			}
 		}
 		else {
 			throw new IndexOutOfBoundsException();
@@ -84,9 +95,9 @@ public class LinkedList {
 			node = node.next;
 		}
 
-		node.value = null;
+
 		//makes the previous node's pointer refer to the next node 
-		if (node.previous == null) {
+		if (node == head) {
 			node.next.previous = null;
 			head = node.next;
 		}
