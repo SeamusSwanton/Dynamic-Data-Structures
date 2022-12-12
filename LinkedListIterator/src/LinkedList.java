@@ -1,4 +1,3 @@
-import java.util.ListIterator;
 
 public class LinkedList {
 	public Node head = null;
@@ -185,12 +184,5 @@ public class LinkedList {
 				return "[" + head.value + "]";
 			}
 		}
-	}
-
-	
-	
-	public ListIterator listIterator() {
-
-		return null;
 	}
 }
