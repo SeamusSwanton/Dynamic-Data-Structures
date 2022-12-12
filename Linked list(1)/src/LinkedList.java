@@ -190,8 +190,8 @@ public class LinkedList implements ListIterator{
 	
 	
 	public ListIterator listIterator() {
-
-		return null;
+		Node current = head;
+//		return current;
 	}
 
 	@Override
@@ -201,9 +201,9 @@ public class LinkedList implements ListIterator{
 	}
 
 	@Override
-	public Object next() {
-		// TODO Auto-generated method stub
-		return null;
+	public String next() {
+		
+//		return node.value;
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class LinkedList implements ListIterator{
 	}
 
 	@Override
-	public Object previous() {
+	public String previous() {
 		// TODO Auto-generated method stub
 		return null;
 	}
