@@ -33,13 +33,28 @@ public class LinkedList {
 			}
 
 			if (index == 0) {
-				newNode.next = head;
-				head.previous = newNode;
-				head = newNode;
+				if (head == null) {
+					head = newNode;
+				}
+				else {
+					newNode.next = head;
+					head.previous = newNode;
+					head = newNode;
+				}
 			}
 
 			else if(index == size()){
-				add(newNode.value);
+				if (tail == null) {
+					tail = newNode;
+					tail.previous = node;
+					tail.previous.next = newNode;
+				}
+				else {
+					tail.next = newNode;
+					newNode.previous = tail;
+					tail = newNode;
+					tail.next = null;
+				}
 			}
 			else {
 				//pointers for the new node
@@ -107,7 +122,7 @@ public class LinkedList {
 		//makes the next node's pointer refer to the previous node
 		if (node.next == null) {
 			node.previous.next = null;
-			tail = node.next;
+			tail = node.previous;
 		}
 		else {
 			node.next.previous = node.previous;
@@ -116,16 +131,38 @@ public class LinkedList {
 	}
 
 	public void set(int index, String element) {
-		// TODO Auto-generated method stub
+		Node node = head;
+		int i = 0;
+		while (i < index) {
+			i++;
+			node = node.next;
+		}
+		
+		node.value = element;
 
 	}	
 
 	public void clear() {
-		// TODO Auto-generated method stub
+		Node node = head;
+		int i = 0;
+
+
+		while (i < size()) {
+			i++;
+			remove(i);
+
+		}
+
+		head = null;
+		tail = null;
 	}
 
 	public String toString() {
-		if (head.next != null) {
+		if (head == null){
+			return "[]";
+		}
+
+		else if (head.next != null) {
 			Node node = head.next;
 			String output =  "[" + head.value;
 
@@ -138,8 +175,14 @@ public class LinkedList {
 
 			return output;	
 		}
+
 		else {
-			return "[" + head.value + "]";
+			if (head.value == null) {
+				return "[]";
+			}
+			else {
+				return "[" + head.value + "]";
+			}
 		}
 	}
 }
