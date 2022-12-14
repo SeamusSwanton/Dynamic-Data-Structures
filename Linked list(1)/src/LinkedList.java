@@ -1,8 +1,9 @@
 import java.util.ListIterator;
 
-public class LinkedList implements ListIterator{
+public class LinkedList implements ListIterator<Object>{
 	public Node head = null;
 	public Node tail = null;
+	Node current = head;
 
 
 	public void add(String element) {
@@ -188,11 +189,14 @@ public class LinkedList implements ListIterator{
 	}
 
 	
-	
 	public ListIterator listIterator() {
-		Node current = head;
-//		return current;
-	}
+		current = head;
+		
+		return this;
+
+}
+	
+
 
 	@Override
 	public boolean hasNext() {
@@ -202,8 +206,10 @@ public class LinkedList implements ListIterator{
 
 	@Override
 	public String next() {
+		String output = current.value; 
+		current = current.next;
 		
-//		return node.value;
+		return output;
 	}
 
 	@Override
@@ -244,7 +250,10 @@ public class LinkedList implements ListIterator{
 
 	@Override
 	public void add(Object e) {
-		// TODO Auto-generated method stub
+//		current.previous.next ;
 		
 	}
 }
+
+
+
