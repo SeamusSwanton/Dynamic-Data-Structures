@@ -3,7 +3,7 @@ import java.util.ListIterator;
 public class LinkedList implements ListIterator<Object>{
 	public Node head = null;
 	public Node tail = null;
-	Node current = head;
+	Node current = new Node(null,null,null);
 
 
 	public void add(String element) {
@@ -190,7 +190,8 @@ public class LinkedList implements ListIterator<Object>{
 
 	
 	public ListIterator listIterator() {
-		current = head;
+		current.next = head;
+		current.previous = null;
 		
 		return this;
 
@@ -206,8 +207,10 @@ public class LinkedList implements ListIterator<Object>{
 
 	@Override
 	public String next() {
-		String output = current.value; 
-		current = current.next;
+		
+		String output = current.next.value;
+		current.previous = current.next;
+		current.next = current.next.next;
 		
 		return output;
 	}
@@ -220,14 +223,23 @@ public class LinkedList implements ListIterator<Object>{
 
 	@Override
 	public String previous() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String output = current.previous.value;
+		current.next = current.previous;
+		current.previous = current.previous.previous;
+		
+		return output;
 	}
 
 	@Override
 	public int nextIndex() {
-		// TODO Auto-generated method stub
-		return 0;
+		Node node = head;
+		int i = 0;
+		while (node != current.next) {
+			i++;
+			node = node.next;
+		}
+		return i;
 	}
 
 	@Override
@@ -250,8 +262,23 @@ public class LinkedList implements ListIterator<Object>{
 
 	@Override
 	public void add(Object e) {
-//		current.previous.next ;
+		String element = (String) e;
+		Node newNode = new Node(element,null,null);
+
+		newNode.next = current.next;
+		newNode.previous = current.previous;
+
+		current.previous.next = newNode;
 		
+		if (current.next != null) {
+			current.next.previous = newNode;
+		}
+		else {
+			current.previous.next.next.previous = newNode;
+		}
+		
+		current.previous = newNode;
+
 	}
 }
 
